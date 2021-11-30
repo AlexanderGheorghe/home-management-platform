@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31912.275
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeManagementCore", "HomeManagementCore\HomeManagementCore.csproj", "{98299A34-0AE4-4073-93F6-F0521F8CB64A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{98299A34-0AE4-4073-93F6-F0521F8CB64A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98299A34-0AE4-4073-93F6-F0521F8CB64A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98299A34-0AE4-4073-93F6-F0521F8CB64A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98299A34-0AE4-4073-93F6-F0521F8CB64A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FBABA605-CBA7-4A18-A744-50362A675A54}
+	EndGlobalSection
+EndGlobal
