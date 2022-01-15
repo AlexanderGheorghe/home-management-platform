@@ -1,4 +1,5 @@
 ﻿using HomeManagementCore.Models;
+using HomeManagementCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HomeManagementCore.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class TodosController : ControllerBase

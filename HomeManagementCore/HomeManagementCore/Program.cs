@@ -1,6 +1,6 @@
 using HomeManagementCore.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Net.Http.Headers;
+using HomeManagementCore.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,7 +39,7 @@ app.UseHttpsRedirection();
 
 app.UseCors(MyAllowSpecificOrigins);
 
-app.UseAuthorization();
+app.UseMiddleware<BasicAuthenticationMiddleware>();
 
 app.MapControllers();
 
