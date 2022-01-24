@@ -36,6 +36,7 @@ namespace HomeManagementCore.Controllers
         [HttpPost]
         public async Task<ActionResult<Todo>> PostTodo(Todo todo)
         {
+            var currentUsersEmail = (HttpContext.Items["User"] as User).Email;
             _context.Todos.Add(todo);
             await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetTodo), new { id = todo.Id }, todo);

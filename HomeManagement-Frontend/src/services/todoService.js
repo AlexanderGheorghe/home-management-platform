@@ -1,7 +1,11 @@
+import { authHeader } from '../helpers/authHeader';
 const baseUrl = 'https://localhost:44323/api/Todos';
 
 export const loadTodos = () => {
-    return fetch(baseUrl).then((res) => res.json());
+    return fetch(baseUrl,{
+        method: 'GET',
+        headers: authHeader()
+    }).then((res) => res.json());
 }
 
 export const getTodo = (id) => {
@@ -11,7 +15,7 @@ export const getTodo = (id) => {
 export const createTodo = (todo) => {
     return fetch(baseUrl, {
         method: "POST",
-        headers: {"Content-Type": "application/json"},
+        headers: {...{"Content-Type": "application/json"}, ...authHeader()},
         body: JSON.stringify({
             title: todo.title,
             completed: todo.completed
@@ -22,7 +26,7 @@ export const createTodo = (todo) => {
 export const updateTodo = (todo) => {
     return fetch(`${baseUrl}/${todo.id}`, {
         method: "PUT",
-        headers: {"Content-Type": "application/json"},
+        headers: {...{"Content-Type": "application/json"}, ...authHeader()},
         body: JSON.stringify({
             id: todo.id,
             title: todo.title,
