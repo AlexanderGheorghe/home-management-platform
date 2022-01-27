@@ -1,7 +1,7 @@
-package com.notifications.notificationservice.services;
+package com.notifications.notificationservice.managers;
 
 import com.notifications.notificationservice.model.Email;
-import com.notifications.notificationservice.managers.EmailManager;
+import com.notifications.notificationservice.model.NotificationRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,7 +16,6 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-
 import java.time.LocalDateTime;
 import java.util.Properties;
 
@@ -24,9 +23,10 @@ import static java.util.Objects.isNull;
 
 @Service
 @Slf4j
-public class EmailSender {
+public class EmailSender implements NotificationSender {
 
     public static final String HOME_MANAGEMENT_ADDRESS = "home_management_unibuc@outlook.com";
+    public static final String NEW_TASK_ASSIGNED_FOR_YOU = "New task assigned for you";
 
     @Value("${mail.username}")
     private String username;
@@ -37,6 +37,18 @@ public class EmailSender {
     private final Properties emailSessionProperties;
 
     private final EmailManager emailManager;
+
+    @Override
+    public void sendNotification(NotificationRequest request) {
+        Email email = Email.builder()
+                .to(request.getUserEmailAddress())
+                .cc(request.getOtherUserAddresses())
+                .body(request.getMessage())
+                .subject(NEW_TASK_ASSIGNED_FOR_YOU)
+                .build();
+
+        sendEmail(email);
+    }
 
     public EmailSender(@Qualifier("mailSessionProperties") Properties emailSessionProperties, EmailManager emailManager) {
         this.emailSessionProperties = emailSessionProperties;

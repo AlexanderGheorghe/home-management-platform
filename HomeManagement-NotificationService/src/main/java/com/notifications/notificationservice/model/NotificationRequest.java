@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 @Builder
 @AllArgsConstructor
-public class EmailRequest {
+public class NotificationRequest {
 
     private String userEmailAddress;
     private String message;
