@@ -1,5 +1,6 @@
 ﻿using HomeManagementCore.Models;
 using HomeManagementCore.Authentication;
+using HomeManagementCore.services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,9 +14,11 @@ namespace HomeManagementCore.Controllers
     public class TodosController : ControllerBase
     {
         private readonly TodoContext _context;
-        public TodosController(TodoContext context)
+        private readonly NotificationService _notificationService;
+        public TodosController(TodoContext context, NotificationService notificationService)
         {
             _context = context;
+            _notificationService = notificationService;
         }
         // GET: api/<TodosController>
         [HttpGet]
@@ -36,7 +39,13 @@ namespace HomeManagementCore.Controllers
         [HttpPost]
         public async Task<ActionResult<Todo>> PostTodo(Todo todo)
         {
-            var currentUsersEmail = (HttpContext.Items["User"] as User).Email;
+            var httpContextItem = (HttpContext.Items["User"] as User);
+            if (httpContextItem != null)
+            {
+                var currentUsersEmail = httpContextItem.Email;
+                var completed = todo.Completed ? "completed" : "active";
+                _notificationService.CreateProductAsync(new NotificationRequest(currentUsersEmail, "Task with name " + todo.Title + " was marked as " + completed));
+            }
             _context.Todos.Add(todo);
             await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetTodo), new { id = todo.Id }, todo);
