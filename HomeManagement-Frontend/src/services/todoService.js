@@ -38,5 +38,6 @@ export const updateTodo = (todo) => {
 export const deleteTodo = (id) => {
     return fetch(`${baseUrl}/${id}`, {
         method: "DELETE",
+        headers: {...{"Content-Type": "application/json"}, ...authHeader()},
     }).then((res) => res.json());
 }
