@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { userService } from '../services/userService';
+import {Link} from "react-router-dom";
 
 class RegisterPage extends React.Component {
     constructor(props) {
@@ -85,6 +86,9 @@ class RegisterPage extends React.Component {
                         <div className={'alert alert-danger'}>{error}</div>
                     }
                 </form>
+                <p>
+                    <Link to="/login">Cancel</Link>
+                </p>
             </div>
         );
     }
