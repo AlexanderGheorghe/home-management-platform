@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useCallback} from 'react';
-import { Tabs, Row, Col, message, Input, Layout } from 'antd';
+import { Tabs, Row, Col, message, Layout } from 'antd';
 import './TodoList.css';
 import TodoTab from './TodoTab';
 import TodoForm from './TodoForm';
@@ -31,6 +31,11 @@ const TodoList = () => {
         message.info('Todo Updated');
     }
 
+    const handleEdit = (todo) => {
+        updateTodo(todo).then(onRefresh());
+        message.info('Todo Edited');
+    }
+
     const refresh = () => {
         loadTodos()
           .then(json => {
@@ -50,9 +55,9 @@ const TodoList = () => {
             console.log('refresh State', refreshing);
         }, [refreshing]);
 
-        useEffect(() => {
-            refresh();
-        }, [onRefresh]);    
+    useEffect(() => {
+        refresh();
+    }, [onRefresh]);    
 
 
     return (
@@ -66,13 +71,13 @@ const TodoList = () => {
                            <br/>
                            <Tabs defaultActiveKey="all">
                                 <TabPane tab="All" key="all">
-                                    <TodoTab Todos={Todos} onTodoToggle={handleToggleTodoStatus} onTodoRemoval={handleRemoveTodo} />
+                                    <TodoTab Todos={Todos} onTodoToggle={handleToggleTodoStatus} onTodoRemoval={handleRemoveTodo} handleEdit={handleEdit}/>
                                 </TabPane>
                                 <TabPane tab="Active" key="active">
-                                    <TodoTab Todos={activeTodos} onTodoToggle={handleToggleTodoStatus} onTodoRemoval={handleRemoveTodo} />
+                                    <TodoTab Todos={activeTodos} onTodoToggle={handleToggleTodoStatus} onTodoRemoval={handleRemoveTodo} handleEdit={handleEdit}/>
                                 </TabPane>
                                 <TabPane tab="Complete" key="complete">
-                                    <TodoTab Todos={completedTodos} onTodoToggle={handleToggleTodoStatus} onTodoRemoval={handleRemoveTodo} />
+                                    <TodoTab Todos={completedTodos} onTodoToggle={handleToggleTodoStatus} onTodoRemoval={handleRemoveTodo} handleEdit={handleEdit}/>
                                 </TabPane>
                            </Tabs>
                        </Col>

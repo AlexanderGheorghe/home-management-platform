@@ -1,6 +1,4 @@
-import logo from './logo.svg';
 import './App.css';
-import { Button } from 'antd';
 import { LoginPage } from './components/Login';
 import { PrivateRoute } from './components/PrivateRoute';
 import TodoList from './components/TodoList';

@@ -1,8 +1,22 @@
 import React, {useState} from 'react';
 import { Tooltip, Tag, List, Button, Popconfirm, Switch } from 'antd';
 import { CloseOutlined, CheckOutlined } from '@ant-design/icons';
+import { Popup } from './Popup';
+import { TodoForm } from './TodoForm';
 
-const TodoItem = ({todo, onTodoRemoval, onTodoToggle}) => {
+const TodoItem = ({todo, onTodoRemoval, onTodoToggle, handleEdit}) => {
+
+    const [isOpen, setIsOpen] = useState(false);
+
+    const togglePopup = () => {
+        setIsOpen(!isOpen);
+    }
+
+    const handleEditPopup = (todo) => {
+        togglePopup();
+        handleEdit(todo);
+    }
+
     return (
         <List.Item actions={[
                 <Tooltip title={todo.completed ? 'Mark as Uncompleted' : 'Mark as Completed'}>
@@ -21,10 +35,18 @@ const TodoItem = ({todo, onTodoRemoval, onTodoToggle}) => {
             key={todo.id} >            
 
             <div className="todo-item">
-                <Tag color={todo.completed ? 'cyan' : 'red'} className="todo-tag">
+                <Tag color={todo.completed ? 'cyan' : 'red'} className="todo-tag edit-button" onClick={togglePopup}>
                     {todo.title}
                 </Tag>
             </div>
+            {isOpen && 
+            <Popup 
+                content={<>
+                    <b>Edit your task name: {todo.title}</b>
+                    <TodoForm onFormSubmit={handleEditPopup} isEdit={true} todo={todo}/>
+                </>}
+                handleClose={togglePopup}
+            />}
         </List.Item>
     );
 }
