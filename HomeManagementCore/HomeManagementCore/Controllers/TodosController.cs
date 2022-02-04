@@ -44,7 +44,7 @@ namespace HomeManagementCore.Controllers
             {
                 var currentUsersEmail = httpContextItem.Email;
                 var completed = todo.Completed ? "completed" : "active";
-                _notificationService.CreateProductAsync(new NotificationRequest(currentUsersEmail, "Task with name " + todo.Title + " was marked as " + completed));
+                _notificationService.CreateProductAsync(new NotificationRequest(currentUsersEmail, "Task with name " + todo.Title + " was created"));
             }
             _context.Todos.Add(todo);
             await _context.SaveChangesAsync();
@@ -60,6 +60,14 @@ namespace HomeManagementCore.Controllers
             try
             {
                 await _context.SaveChangesAsync();
+                
+                var httpContextItem = (HttpContext.Items["User"] as User);
+                if (httpContextItem != null)
+                {
+                    var currentUsersEmail = httpContextItem.Email;
+                    var completed = todo.Completed ? "completed" : "active";
+                    _notificationService.CreateProductAsync(new NotificationRequest(currentUsersEmail, "Task name changed to " + todo.Title + " and was marked as " + completed));
+                }
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -77,6 +85,15 @@ namespace HomeManagementCore.Controllers
             if (todo == null) return NotFound();
             _context.Todos.Remove(todo);
             await _context.SaveChangesAsync();
+            
+            var httpContextItem = (HttpContext.Items["User"] as User);
+            if (httpContextItem != null)
+            {
+                var currentUsersEmail = httpContextItem.Email;
+                var completed = todo.Completed ? "completed" : "active";
+                _notificationService.CreateProductAsync(new NotificationRequest(currentUsersEmail, "Task with name " + todo.Title + " was deleted "));
+            }
+            
             return NoContent();
         }
 

@@ -14,7 +14,9 @@ public class NotificationFactory {
 
     public NotificationSender createNotification(NotificationType type) {
         return switch(type) {
-            case EMAIL -> emailSender;
+//            case SMS -> smsSender;
+//            case PUSH -> pushSender;
+//            case EMAIL -> emailSender;
 
             default -> emailSender;
         };

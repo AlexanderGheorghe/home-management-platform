@@ -2,15 +2,24 @@ import React from 'react';
 import { Form, Row, Col, Button, Input } from 'antd';
 import { PlusCircleFilled } from '@ant-design/icons';
 
-const TodoForm = ({onFormSubmit}) => {
+export const TodoForm = ({onFormSubmit, isEdit = false, todo}) => {
     const [form] = Form.useForm();
 
     const onFinish = () => {
-        onFormSubmit({
-            title: form.getFieldValue('title'),
-            completed: false
-        });
-        console.log(form.getFieldValue('title'));
+        if (isEdit) {
+            let request = {
+                id: todo.id,
+                title: form.getFieldValue('title'),
+                completed: todo.completed,
+            };
+            onFormSubmit(request);
+        } else {
+            onFormSubmit({
+                title: form.getFieldValue('title'),
+                completed: false
+            });
+            console.log(form.getFieldValue('title'));
+        }
         form.resetFields();
     }
 
@@ -23,7 +32,11 @@ const TodoForm = ({onFormSubmit}) => {
                     </Form.Item>
                 </Col>
                 <Col xs={24} sm={24} md={7} lg={5} xl={4}></Col>
-                <Button type="primary" htmlType="submit" block><PlusCircleFilled />Add Todo</Button>
+                {isEdit 
+                ? <Button type="primary" htmlType="submit" block>Edit Todo</Button>
+                : <Button type="primary" htmlType="submit" block><PlusCircleFilled />Add Todo</Button>
+                }
+                
             </Row>
         </Form>
     )
