@@ -24,7 +24,11 @@ namespace HomeManagementCore.Authentication
                 var username = credentials[0];
                 var password = credentials[1];
 
-                context.Items["User"] = await todoContext.Users.SingleOrDefaultAsync(x => x.Username == username && x.Password == password);
+                var user = await todoContext.Users.SingleOrDefaultAsync(x => x.Username == username && x.Password == password);
+                if (user != null && user.ConfirmedEmail)
+                    context.Items["User"] = user;
+                else
+                    context.Items["User"] = null;
             }
             catch {}
 

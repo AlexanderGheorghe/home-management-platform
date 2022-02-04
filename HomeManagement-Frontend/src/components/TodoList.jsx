@@ -4,6 +4,7 @@ import './TodoList.css';
 import TodoTab from './TodoTab';
 import TodoForm from './TodoForm';
 import { createTodo, deleteTodo, loadTodos, updateTodo } from '../services/todoService';
+import {Link} from "react-router-dom";
 
 const {TabPane} = Tabs;
 const {Content} = Layout;
@@ -83,6 +84,9 @@ const TodoList = () => {
                        </Col>
                    </Row>
                </div>
+               <p>
+                   <Link to="/login">Logout</Link>
+               </p>
             </Content> 
         </Layout>
     );

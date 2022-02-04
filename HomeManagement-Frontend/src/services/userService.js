@@ -61,14 +61,14 @@ export const getUser = (id) => {
     return fetch(`${baseUrl}/${id}`).then((res) => res.json());
 }
 
-export const createUser = (user) => {
+export const createUser = (username, password, email) => {
     return fetch(baseUrl, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
-            username: user.username,
-            password: user.password,
-            email: user.email
+            username: username,
+            password: password,
+            email: email
         }),
     }).then((res) => res.json());
 }
@@ -95,5 +95,6 @@ export const deleteUser = (id) => {
 export const userService = {
     login,
     logout,
-    getAll
+    getAll,
+    createUser
 };

@@ -39,6 +39,8 @@ namespace HomeManagementCore.Controllers
 
             if (authenticatedUser == null)
                 return BadRequest(new { message = "Username or password is incorrect" });
+            else if (!authenticatedUser.ConfirmedEmail)
+                return BadRequest(new { message = "Please confirm your email" });
 
             return Ok(authenticatedUser);
         }

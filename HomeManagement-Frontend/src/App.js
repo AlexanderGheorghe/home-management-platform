@@ -1,5 +1,6 @@
 import './App.css';
 import { LoginPage } from './components/Login';
+import { RegisterPage } from './components/Register';
 import { PrivateRoute } from './components/PrivateRoute';
 import TodoList from './components/TodoList';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
@@ -13,6 +14,7 @@ function App() {
               <div>
                 <PrivateRoute exact path="/" component={TodoList} />
                 <Route path="/login" component={LoginPage} />
+                <Route path="/register" component={RegisterPage} />
               </div>
             </Router>
           </div>
